@@ -119,6 +119,8 @@ pink_trace_setup(pid_t pid, int options)
 		ptrace_options |= PTRACE_O_TRACEVFORKDONE;
 	if (options & PINK_TRACE_OPTION_EXIT)
 		ptrace_options |= PTRACE_O_TRACEEXIT;
+	if (options & PINK_TRACE_OPTION_SECCOMP)
+                ptrace_options |= PTRACE_O_TRACESECCOMP;
 
 	return !(0 > ptrace(PTRACE_SETOPTIONS, pid, NULL, ptrace_options));
 }

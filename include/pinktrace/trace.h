@@ -116,7 +116,16 @@
  * @note Availability: Linux
  **/
 #define PINK_TRACE_OPTION_EXIT      (1 << 6)
-
+/**
+ * This define represents the trace option SECCOMP.
+ * If this flag is set in the options argument of pink_trace_setup(),
+ * receive information about children stopped by the SECCOMP facility,
+ * with (SIGTRAP | PTRACE_EVENT_SECOMP << 8). The message number can
+ * be retrieved with pink_trace_geteventmsg().
+ *
+ * @note Availability: Linux
+ **/
+#define PINK_TRACE_OPTION_SECCOMP   (1 << 7)
 /**
  * All trace options OR'ed together.
  *
@@ -129,7 +138,8 @@
 	 PINK_TRACE_OPTION_CLONE |\
 	 PINK_TRACE_OPTION_EXEC |\
 	 PINK_TRACE_OPTION_VFORK_DONE |\
-	 PINK_TRACE_OPTION_EXIT)
+	 PINK_TRACE_OPTION_EXIT |\
+         PINK_TRACE_OPTION_SECCOMP)
 
 #endif /* PINK_OS_LINUX... */
 

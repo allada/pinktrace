@@ -27,9 +27,15 @@
 
 #include <assert.h>
 #include <sys/wait.h>
+#include <sys/ptrace.h>
 
 #include <pinktrace/internal.h>
 #include <pinktrace/pink.h>
+
+// There is a typo on some system in sys/ptrace.h
+#if !defined (PTRACE_EVENT_SECCOMP) && defined(PTRAVE_EVENT_SECCOMP)
+#define PTRACE_EVENT_SECCOMP PTRAVE_EVENT_SECCOMP
+#endif
 
 pink_event_t
 pink_event_decide(int status)
@@ -57,6 +63,9 @@ pink_event_decide(int status)
 				return PINK_EVENT_EXEC;
 			case PTRACE_EVENT_EXIT:
 				return PINK_EVENT_EXIT;
+                                //                        case PTRAVE_EVENT_SECCOMP:
+                        case PTRACE_EVENT_SECCOMP:
+                                return PINK_EVENT_SECCOMP;
 			default:
 				return PINK_EVENT_TRAP;
 			}
@@ -94,6 +103,8 @@ pink_event_name(pink_event_t event)
 		return "exec";
 	case PINK_EVENT_EXIT:
 		return "exit";
+        case PINK_EVENT_SECCOMP:
+                return "seccomp";
 	case PINK_EVENT_GENUINE:
 		return "genuine";
 	case PINK_EVENT_EXIT_GENUINE:

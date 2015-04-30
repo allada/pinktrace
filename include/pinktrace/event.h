@@ -91,6 +91,12 @@ typedef enum {
 	 * @note Availability: Linux
 	 **/
 	PINK_EVENT_EXIT,
+        /**
+         * Child has hit a SECCOMP event
+         *
+         * @note Availability: Linux
+         **/
+        PINK_EVENT_SECCOMP,
 	/** Child has received a genuine signal **/
 	PINK_EVENT_GENUINE,
 	/** Child has exited normally **/
